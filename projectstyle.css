@@ -1,0 +1,40 @@
+h1{
+    color: darkred;
+    background-color: orange;
+}
+h2{
+    color: darkolivegreen;
+    background-color: black;
+}
+
+h3{
+    color: blueviolet;
+    background-color: goldenrod;
+}
+
+p{
+    color: aqua;
+    
+}
+
+.firstdiv{
+    background-color: chartreuse;
+}
+#myparagraph{
+    color: black;
+}
+div{
+    background-color: black;
+}
+span{
+    background-color: navy;
+}
+h4 {
+    color: aliceblue;
+}
+h5 {
+    color: aliceblue;
+}
+#thirdparagraph {
+    color: rgb(47, 118, 180);
+}

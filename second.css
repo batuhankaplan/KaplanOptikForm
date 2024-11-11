@@ -1,0 +1,20 @@
+body{
+    font-family:Pacifico;
+}
+h1 {
+    font-family:'Franklin Gothic Medium';
+    text-align: center;
+}
+p{
+    text-align: center;
+    font-size: 150%;
+}
+#batu {
+    border: 7px solid rgb(41, 39, 39);
+    padding-top: 30px;
+    margin: 30px;
+}
+#kaplan {
+    border: 7px dashed rgb(207, 162, 162);
+    margin: 100px;
+}
