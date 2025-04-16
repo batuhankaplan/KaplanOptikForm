@@ -1,0 +1,9 @@
+Bir kullanıcı giriş/kayıt/çıkış sistemi istiyorum uygulmamın içine. 
+1) Uygulamadan bağımsız olarak siteye ilk girişte (uygulamaya ilk girişte) bizi bu kullanıcı giriş ve kayıt sayfası karşılayacak.
+
+2) Burada kullanıcı girişi mail ve şifre ile yapılacak. Kayıt esnasında ise kullanıcıdan: e-mail, kullanıcı adı, meslek(Yönetici Avukat, Avukat, Stajyer Avukat, Takip Elemanı, Muhasebe, Ulaşım, Sekreter seçenekleri arasından), cinsiyet, yaş(gün/ay/yıl) seçimi yer alacak.
+
+3) Uygulamaya ilk girişte karşımıza çıkacak olan kullanıcı giriş ve kayıt sisteminin tasarımı modern, çok profesyonel, çok şık ve hukuk uygulamasına uygun çizgilerde bir tasarım olacak. (Tasarım örneği için image ekliyorum ona bakarak yapabilirsin.)
+
+4) Kullanıcı girişi yaptıktan sonra bizi normal sayfamıza atsın artık yani @anasayfa.html e atsın bizi. Kullanıcı çıkışı yapmak veya kullanıcı ayarlarını yapmak kullanıcıya profil resmi eklemek için vs. uygulmamamızın sağ üst tarafına bir yuvarlak profil resmi ikonu koyalım ve bu ikona tıklandığında kullanıcı seçenekleri açılsın; çıkış, ayarlar, profil gibi seçenekler olsun.
+
