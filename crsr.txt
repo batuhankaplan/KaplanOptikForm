@@ -1,5 +1,0 @@
-kullanıcı yetkileri düzenleme bölümüne işçi görüşme formu içinde yetki ekeleyelim görüntüleme ekleme silme şeklinde.
-
-ayrıca anasayfadaki son işlemler kısmına işçi görüşme tutanağı formu kaydeden düzenleyen ve silen işlemler de gösterilsin hangi kullanıcı yaptıysa.
-
-ayrıca anasayfadaki son işlemler kısmında bir kayıt tutalım ve orada yapılan işlemlerin hep bir kayı olsun sistemin en başından itibaren mutlaka kayıt olarak tutulsun hangi kullanııcı ne işlem yapmış. ve yönetici paneline bir seçenek ekleyelim işlem geçmişi görüntüleme şeklinde orada tarih aralığı girerek bütün işlem geçmişini görebileceğimiz bir sistem olsun.
