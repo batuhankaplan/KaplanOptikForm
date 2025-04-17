@@ -3,13 +3,14 @@ import os
 import json
 import datetime
 import glob
+import numpy as np
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, 
                             QHBoxLayout, QLabel, QPushButton, QGridLayout, 
                             QScrollArea, QTabWidget, QLineEdit, QComboBox, 
                             QMessageBox, QFrame, QSizePolicy, QTableWidget,
                             QTableWidgetItem, QHeaderView, QSplitter)
 from PyQt5.QtCore import Qt, QSize, QRect
-from PyQt5.QtGui import QIcon, QFont, QColor, QPixmap, QPainter
+from PyQt5.QtGui import QIcon, QFont, QColor, QPixmap, QPainter, QPen
 
 class OptionButton(QPushButton):
     def __init__(self, text, parent=None):
@@ -18,6 +19,7 @@ class OptionButton(QPushButton):
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setMinimumSize(25, 25)
         self.setMaximumSize(30, 30)
+        
         self.setStyleSheet("""
             QPushButton {
                 border: 1px solid #ccc;
@@ -36,6 +38,77 @@ class OptionButton(QPushButton):
                 background-color: #e9ecef;
             }
         """)
+    
+    def set_scribbled(self, scribbled, color=None):
+        """Karalama efektini etkinleştir/devre dışı bırak"""
+        self.is_scribbled = scribbled
+        
+        if scribbled:
+            self.scribble_color = color or QColor(255, 0, 0)  # Varsayılan kırmızı
+            self.setStyleSheet("""
+                QPushButton {
+                    border: 1px solid #ccc;
+                    border-radius: 15px;
+                    padding: 0px;
+                    background-color: #f8f9fa;
+                    font-weight: bold;
+                    font-size: 11px;
+                }
+                QPushButton:checked {
+                    background-color: #4CAF50;
+                    color: white;
+                    border-color: #388E3C;
+                }
+                QPushButton:hover {
+                    background-color: #e9ecef;
+                }
+                """)
+            # Karalama efekti için arka plan rengini değiştir
+            if self.is_scribbled:
+                color_str = f"rgb({self.scribble_color.red()}, {self.scribble_color.green()}, {self.scribble_color.blue()})"
+                self.setStyleSheet(f"""
+                    QPushButton {{
+                        border: 2px solid {color_str};
+                        border-radius: 15px;
+                        padding: 0px;
+                        background-color: {color_str};
+                        font-weight: bold;
+                        font-size: 11px;
+                        color: white;
+                    }}
+                    QPushButton:checked {{
+                        background-color: {color_str};
+                        color: white;
+                        border-color: {color_str};
+                    }}
+                    QPushButton:hover {{
+                        background-color: {color_str};
+                        opacity: 0.8;
+                    }}
+                """)
+        else:
+            # Normal stil
+            self.setStyleSheet("""
+                QPushButton {
+                    border: 1px solid #ccc;
+                    border-radius: 15px;
+                    padding: 0px;
+                    background-color: #f8f9fa;
+                    font-weight: bold;
+                    font-size: 11px;
+                }
+                QPushButton:checked {
+                    background-color: #4CAF50;
+                    color: white;
+                    border-color: #388E3C;
+                }
+                QPushButton:hover {
+                    background-color: #e9ecef;
+                }
+            """)
+        
+        # Güncelleme için yeniden çiz
+        self.update()
 
 class Question(QWidget):
     def __init__(self, question_number, parent=None):
@@ -186,7 +259,8 @@ class Question(QWidget):
         if self.selected_option == option:
             # Seçimi temizle
             self.selected_option = None
-            # Şık stilini normale çevir
+            
+            # Tüm şıkları normale çevir
             for opt, btn in self.options.items():
                 btn.setChecked(False)
                 btn.setStyleSheet("""
@@ -198,15 +272,16 @@ class Question(QWidget):
                         font-weight: bold;
                         font-size: 11px;
                     }
-                    QPushButton:hover {
-                        background-color: #e9ecef;
-                    }
                     QPushButton:checked {
                         background-color: #4CAF50;
                         color: white;
                         border-color: #388E3C;
                     }
+                    QPushButton:hover {
+                        background-color: #e9ecef;
+                    }
                 """)
+            
             # TestTab'ı bilgilendir
             if self.test_tab:
                 self.test_tab.calculate_and_show_results()
@@ -255,6 +330,7 @@ class Question(QWidget):
                     border-color: #1565C0;
                 }
             """)
+            
             self.selected_option = option
             
             # TestTab'ı bilgilendir
@@ -289,10 +365,46 @@ class Question(QWidget):
                 """)
                 return
                 
-            # Normal şık seçimi
+            # Normal şık seçimi - önceki seçimleri temizle
             for opt, btn in self.options.items():
                 if opt != option:
                     btn.setChecked(False)
+                    btn.setStyleSheet("""
+                        QPushButton {
+                            border: 1px solid #ccc;
+                            border-radius: 15px;
+                            padding: 0px;
+                            background-color: #f8f9fa;
+                            font-weight: bold;
+                            font-size: 11px;
+                        }
+                        QPushButton:checked {
+                            background-color: #4CAF50;
+                            color: white;
+                            border-color: #388E3C;
+                        }
+                        QPushButton:hover {
+                            background-color: #e9ecef;
+                        }
+                    """)
+                else:
+                    btn.setChecked(True)
+                    btn.setStyleSheet("""
+                        QPushButton {
+                            background-color: #4CAF50;
+                            color: white;
+                            border: 1px solid #ddd;
+                            border-radius: 15px;
+                            padding: 0px;
+                            font-weight: bold;
+                            font-size: 11px;
+                        }
+                        QPushButton:checked {
+                            background-color: #4CAF50;
+                            color: white;
+                            border-color: #388E3C;
+                        }
+                    """)
                     
             self.selected_option = option
             self.options[option].setChecked(True)
@@ -613,7 +725,7 @@ class Question(QWidget):
                     background-color: #e9ecef;
                 }
             """)
-            
+        
         # İşaretleri sıfırla
         self.correct_btn.setStyleSheet("""
             QPushButton {
